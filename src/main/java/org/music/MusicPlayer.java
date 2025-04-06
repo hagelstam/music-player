@@ -18,6 +18,9 @@ public class MusicPlayer {
         return rootAlbum;
     }
 
+    /**
+     * Recursively all .wav files as sound clips from directory and its children.
+     */
     public void loadSoundClips(File directory) {
         if (directory.isDirectory()) {
             for (File file : Objects.requireNonNull(directory.listFiles())) {
