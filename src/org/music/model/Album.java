@@ -1,10 +1,11 @@
-package org.music;
+package org.music.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Album {
+    
     private final String name;
     private Album parentAlbum;
     private final List<Album> childAlbums;

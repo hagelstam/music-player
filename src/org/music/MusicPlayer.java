@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class MusicPlayer {
+    
     private final Album rootAlbum;
     private final List<SoundClip> allSoundClips;
 
