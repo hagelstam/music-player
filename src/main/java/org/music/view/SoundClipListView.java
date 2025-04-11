@@ -1,13 +1,13 @@
 package org.music.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
-import model.Album;
-import model.SoundClip;
+import org.music.model.Album;
+import org.music.model.SoundClip;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SoundClipListView extends ListView<SoundClip> {
 
@@ -24,16 +24,14 @@ public class SoundClipListView extends ListView<SoundClip> {
     }
 
     /**
-     * Displays the contents of the specified album
+     * Displays the contents of the specified albums
      *
      * @param album - the album which contents are to be displayed
      */
-    public void display(ADD_YOUR_ALBUM_TYPE album) {
+    public void display(Album album) {
         this.getItems().clear();
 
-        // TODO:
-        // Add all SoundClips contained in the parameter album to
-        // the list of SoundClips 'clips' (the instance variable)
+        this.clips.addAll(album.getSoundClips());
 
         ObservableList<SoundClip> temp = FXCollections.observableList(clips);
         this.setItems(temp);

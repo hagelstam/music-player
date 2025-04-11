@@ -1,11 +1,11 @@
 package org.music.view;
 
-import controller.MusicOrganizerController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
+import org.music.controller.MusicOrganizerController;
 
 public class ButtonPaneHBox extends HBox {
 
