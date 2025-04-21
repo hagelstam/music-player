@@ -27,7 +27,6 @@ public class MusicOrganizerWindow extends Application {
     private SoundClipListView soundClipTable;
     private TextArea messages;
 
-
     public static void main(String[] args) {
         controller = new MusicOrganizerController();
         if (args.length == 0) {
@@ -66,7 +65,7 @@ public class MusicOrganizerWindow extends Application {
 
             Scene scene = new Scene(bord);
 
-            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.sizeToScene();
             primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -92,7 +91,10 @@ public class MusicOrganizerWindow extends Application {
             public void handle(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     // This code gets invoked whenever the user double clicks in the TreeView
-                    // TODO: ADD YOUR CODE HERE
+                    Album selectedAlbum = getSelectedAlbum();
+                    if (selectedAlbum != null) {
+                        soundClipTable.display(selectedAlbum);
+                    }
                 }
             }
         });
@@ -110,7 +112,10 @@ public class MusicOrganizerWindow extends Application {
             public void handle(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     // This code gets invoked whenever the user double clicks in the sound clip table
-                    // TODO: ADD YOUR CODE HERE
+                    List<SoundClip> selectedClips = getSelectedSoundClips();
+                    if (!selectedClips.isEmpty()) {
+                        controller.playSoundClips();
+                    }
                 }
             }
         });
