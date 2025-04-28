@@ -5,11 +5,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class Album {
-    
+
     private final String name;
     private Album parentAlbum;
     private final List<Album> childAlbums;
     private final List<SoundClip> soundClips;
+    private final List<AlbumObserver> observers;
 
     /**
      * Constructor for creating a root album.
@@ -19,6 +20,7 @@ public class Album {
         this.parentAlbum = null;
         this.childAlbums = new ArrayList<>();
         this.soundClips = new ArrayList<>();
+        this.observers = new ArrayList<>();
     }
 
     /**
@@ -49,6 +51,40 @@ public class Album {
     }
 
     /**
+     * Add an observer to this album.
+     */
+    public void addObserver(AlbumObserver observer) {
+        if (!observers.contains(observer)) {
+            observers.add(observer);
+        }
+    }
+
+    /**
+     * Remove an observer from this album.
+     */
+    public void removeObserver(AlbumObserver observer) {
+        observers.remove(observer);
+    }
+
+    /**
+     * Notify all observers that the sound clips have changed.
+     */
+    private void notifySoundClipsChanged() {
+        for (AlbumObserver observer : observers) {
+            observer.onSoundClipsChanged(this);
+        }
+    }
+
+    /**
+     * Notify all observers that this album has been deleted.
+     */
+    private void notifyAlbumDeleted() {
+        for (AlbumObserver observer : new ArrayList<>(observers)) {
+            observer.onAlbumDeleted(this);
+        }
+    }
+
+    /**
      * Add a child album.
      * Requires album != null and not already a child.
      */
@@ -76,6 +112,7 @@ public class Album {
 
         this.childAlbums.remove(album);
         album.parentAlbum = null;
+        album.notifyAlbumDeleted();
     }
 
     /**
@@ -110,6 +147,8 @@ public class Album {
         assert soundClip != null;
 
         soundClips.add(soundClip);
+        notifySoundClipsChanged();
+
         if (parentAlbum != null) {
             parentAlbum.addSoundClip(soundClip);
         }
@@ -123,6 +162,8 @@ public class Album {
         assert soundClip != null;
 
         soundClips.remove(soundClip);
+        notifySoundClipsChanged();
+
         for (Album childAlbum : childAlbums) {
             childAlbum.removeSoundClip(soundClip);
         }

@@ -1,13 +1,14 @@
 package org.music.view;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.ListView;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.music.model.Album;
 import org.music.model.SoundClip;
 
-import java.util.ArrayList;
-import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 
 public class SoundClipListView extends ListView<SoundClip> {
 
@@ -30,10 +31,11 @@ public class SoundClipListView extends ListView<SoundClip> {
      */
     public void display(Album album) {
         this.getItems().clear();
+        this.clips.clear();
 
         this.clips.addAll(album.getSoundClips());
 
-        ObservableList<SoundClip> temp = FXCollections.observableList(clips);
+        ObservableList<SoundClip> temp = FXCollections.observableArrayList(clips);
         this.setItems(temp);
     }
 

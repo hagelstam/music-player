@@ -1,10 +1,15 @@
 package org.music.controller;
 
-import org.music.model.*;
-import org.music.view.MusicOrganizerWindow;
-
 import java.util.List;
 import java.util.Set;
+
+import org.music.model.Album;
+import org.music.model.SoundClip;
+import org.music.model.SoundClipBlockingQueue;
+import org.music.model.SoundClipLoader;
+import org.music.model.SoundClipPlayer;
+import org.music.view.AlbumWindow;
+import org.music.view.MusicOrganizerWindow;
 
 public class MusicOrganizerController {
 
@@ -110,7 +115,6 @@ public class MusicOrganizerController {
             return;
         }
 
-
         for (SoundClip clip : selectedClips) {
             selectedAlbum.addSoundClip(clip);
         }
@@ -153,9 +157,38 @@ public class MusicOrganizerController {
      */
     public void playSoundClips() {
         List<SoundClip> l = view.getSelectedSoundClips();
-        queue.enqueue(l);
-        for (int i = 0; i < l.size(); i++) {
-            view.displayMessage("Playing " + l.get(i));
+        playSoundClipsFromList(l);
+    }
+    
+    /**
+     * Plays a list of sound clips.
+     */
+    public void playSoundClipsFromList(List<SoundClip> soundClips) {
+        if (soundClips.isEmpty()) {
+            return;
         }
+        
+        queue.enqueue(soundClips);
+
+        for (SoundClip soundClip : soundClips) {
+            if (view != null) {
+                view.displayMessage("Playing " + soundClip);
+            }
+        }
+    }
+    
+    /**
+     * Opens a new window for the selected album.
+     */
+    public void openAlbumWindow() {
+        Album selectedAlbum = view.getSelectedAlbum();
+        if (selectedAlbum == null) {
+            view.displayMessage("Please select an album");
+            return;
+        }
+        
+        AlbumWindow albumWindow = new AlbumWindow(selectedAlbum, this);
+        albumWindow.show();
+        view.displayMessage("Opened new window for album: " + selectedAlbum.getName());
     }
 }

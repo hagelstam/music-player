@@ -11,3 +11,7 @@ vår nuvarande lösning.
 ## Uppgift 2 beskrivning
 
 Till uppgift 2 bidrog Maximilian Hagelstam och Johnny Do. Det största arbetet var att integrera den givna koden i projektet och få JavaFX att fungera med Maven. När vi fick det att fungera var det relativt enkelt att implementera den funktionalitet som saknades, tack vare TODO kommentarerna.
+
+## Uppgift 3 beskrivning
+
+Till uppgift 3 bidrog Maximilian Hagelstam och Johnny Do. Vi började med att skapa en ny AlbumObserver interface och en AlbumWindow klass som implementerar den. Sedan gjorde vi ändringar Album klassen, så att den skulle använda sig av observern. Vi behövde också göra en liten ändring till hur ljudklipp spelas upp pga en bug som gjorde att ljudklipp inte spelades i nya fönster.
